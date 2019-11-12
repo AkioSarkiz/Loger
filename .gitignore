@@ -1,5 +1,3 @@
 .idea/
 tests/
-.gitignore
 composer.phar
-vendor/
