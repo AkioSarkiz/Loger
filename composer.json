@@ -1,0 +1,19 @@
+{
+    "name": "akiosarkiz/loger",
+    "description": "Create log together with Loger",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Akio Sarkiz",
+            "email": "akiosarkiz@gmail.com"
+        }
+    ],
+    "require": {},
+
+	"autoload": {
+        "psr-4": {
+            "Loger\\": "src"
+        }
+    }
+}
