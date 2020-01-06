@@ -7,6 +7,7 @@ namespace Loger;
 
 
 use DateTime;
+use Exception;
 
 
 /**
@@ -36,6 +37,28 @@ class Log
     private static $formatFile = '.log';
 
 
+    private static function addFastAbstract(int $type, Exception $e, String $filename = self::DEFAULT_FILE_LOG): Void
+    {
+        $message = sprintf("line: %s\t file: %s\t code:%s\t message: %s ", $e->getFile(), $e->getFile(), $e->getCode(), $e->getMessage());
+        array_push(self::$logList, new self($type, 'error fast', $message, $filename));
+        if (self::$autoWrite) self::writeToFile();
+    }
+
+    public static function addInfoFast(Exception $e, String $filename = self::DEFAULT_FILE_LOG): Void
+    {
+        self::addFastAbstract(self::INFO, $e, $filename);
+    }
+
+    public static function addWarningFast(Exception $e, String $filename = self::DEFAULT_FILE_LOG): Void
+    {
+        self::addFastAbstract(self::WARNING, $e, $filename);
+    }
+
+    public static function addErrorFast(Exception $e, String $filename = self::DEFAULT_FILE_LOG): Void
+    {
+        self::addFastAbstract(self::ERROR, $e, $filename);
+    }
+
     /**
      * Log constructor.
      * @param int $type
@@ -51,7 +74,7 @@ class Log
         $this->filename = $filename . self::$formatFile;
         try {
             $this->dateTime = (new DateTime())->format('Y-m-d H:i:s');
-        }catch (\Exception $e) {
+        }catch (Exception $e) {
             $this->dateTime = 'error';
         }
     }
