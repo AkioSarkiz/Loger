@@ -39,8 +39,8 @@ class Log
 
     private static function addFastAbstract(int $type, Exception $e, String $filename = self::DEFAULT_FILE_LOG): Void
     {
-        $message = sprintf("line: %s\t file: %s\t code:%s\t message: %s ", $e->getFile(), $e->getFile(), $e->getCode(), $e->getMessage());
-        array_push(self::$logList, new self($type, 'error fast', $message, $filename));
+        $message = sprintf("line: %s\t file: %s\t code:%s\t message: %s ", $e->getLine(), $e->getFile(), $e->getCode(), $e->getMessage());
+        array_push(self::$logList, new self($type, 'log fast', $message, $filename));
         if (self::$autoWrite) self::writeToFile();
     }
 
@@ -85,7 +85,7 @@ class Log
      */
     private static $logList = [];
     private static $path = __DIR__;
-    public const DEFAULT_FILE_LOG = 'general.log';
+    public const DEFAULT_FILE_LOG = 'general';
 
     /**
      * @param String $title
@@ -128,7 +128,7 @@ class Log
      */
     public static function writeToFile(): Void
     {
-        if (!file_exists(self::$path. '/log') || !is_dir(!self::$path . '/log'))
+        if (!is_dir(self::$path . '/log'))
             mkdir((self::$path . '/log'));
 
         foreach (self::$logList as $log)

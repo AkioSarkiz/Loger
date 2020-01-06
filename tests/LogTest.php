@@ -46,4 +46,22 @@ class LogTest extends TestCase
         $this->assertTrue(true);
     }
 
+
+    public function test3()
+    {
+        // init
+        Log::setPathLog(__DIR__);
+        Log::setAutoWrite(true);
+
+        // Work!
+        Log::addInfoFast(new Exception());
+
+        // Process...
+        Log::addWarningFast(new Exception());
+
+        // Error!
+        Log::addErrorFast(new Exception());
+
+        $this->assertTrue(true);
+    }
 }
